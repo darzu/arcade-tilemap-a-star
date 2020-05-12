@@ -34,6 +34,23 @@ namespace scene {
             l => l.x === end.x && l.y === end.y);
     }
 
+    //% block="path from $start to any of $end"
+    //% start.shadow=mapgettile
+    //% ends.shadow=mapgettilestype
+    //% group="Tiles" weight=10
+    export function aStarToAny(start: tiles.Location, ends: tiles.Location[]) {
+        const tm = game.currentScene().tileMap;
+
+        return generalAStar(tm, start,
+            t => 0,
+            l => {
+                for (let e of ends)
+                    if (e.x === l.x && e.y === l.y)
+                        return true
+                return false
+            });
+    }
+
     export function generalAStar(tm: tiles.TileMap, start: tiles.Location, 
         heuristic: (tile: tiles.Location) => number,
         isEnd: (tile: tiles.Location) => boolean): tiles.Location[] {
