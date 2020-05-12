@@ -34,11 +34,15 @@ namespace scene {
             l => l.x === end.x && l.y === end.y);
     }
 
-    //% block="path from $start to any of $ends"
-    //% start.shadow=mapgettile
-    //% ends.shadow=mapgettilestype
-    //% group="Tiles" weight=10
     export function aStarToAny(start: tiles.Location, ends: tiles.Location[]) {
+        // TODO: this doesn't work well in blocks since the mapgettilestype 
+        //      shadow has a hole in it.
+        //      Also this is pretty inefficient so we might not want to encourage
+        //      use of this.
+        //% block="path from $start to any of $ends"
+        //% start.shadow=mapgettile
+        //% ends.shadow=mapgettilestype
+        //% group="Tiles" weight=10
         const tm = game.currentScene().tileMap;
 
         return generalAStar(tm, start,
@@ -48,6 +52,24 @@ namespace scene {
                     if (e.x === l.x && e.y === l.y)
                         return true
                 return false
+            });
+    }
+
+
+    //% block="path from $start to any $tile"
+    //% start.shadow=mapgettile
+    //% tile.shadow=tileset_tile_picker
+    //% tile.decompileIndirectFixedInstances=true
+    //% group="Tiles" weight=10
+    export function aStarToAnyOfType(start: tiles.Location, tile: Image) {
+        const tm = game.currentScene().tileMap;
+
+        const endIndex = tm.getImageType(tile);
+
+        return generalAStar(tm, start,
+            t => 0,
+            l => {
+                return endIndex === tm.getTileIndex((l as any)._col, (l as any)._row)
             });
     }
 
