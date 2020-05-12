@@ -25,6 +25,11 @@ namespace scene {
     //% end.shadow=mapgettile
     //% group="Tiles" weight=10
     export function aStar(start: tiles.Location, end: tiles.Location) {
+        return generalAStar(start, end, tileLocationHeuristic);
+    }
+
+    export function generalAStar(start: tiles.Location, end: tiles.Location, 
+        heuristic: (source: tiles.Location, target: tiles.Location) => number): tiles.Location[] {
         const tm = game.currentScene().tileMap;
 
         if (isWall(start, tm) || isWall(end, tm)) {
@@ -60,7 +65,7 @@ namespace scene {
                 return;
             }
 
-            let h = tileLocationHeuristic(l, end);
+            let h = heuristic(l, end);
             // need to store extra cost on location node too, and keep that up to date
             // if (h > parent.extraCost) {
 
