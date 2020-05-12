@@ -34,7 +34,7 @@ namespace scene {
             l => l.x === end.x && l.y === end.y);
     }
 
-    //% block="path from $start to any of $end"
+    //% block="path from $start to any of $ends"
     //% start.shadow=mapgettile
     //% ends.shadow=mapgettilestype
     //% group="Tiles" weight=10

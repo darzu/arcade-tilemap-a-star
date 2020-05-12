@@ -22,7 +22,7 @@ namespace myTiles {
 
 let cursor = sprites.create(img`
     2 2
-    2 2`)
+2 2`)
 controller.moveSprite(cursor)
 scene.cameraFollowSprite(cursor)
 cursor.setFlag(SpriteFlag.Ghost, true)
