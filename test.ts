@@ -19,6 +19,14 @@ namespace myTiles {
         . . . . . . . . . . . . . . . .
     `
 }
+
+let cursor = sprites.create(img`
+    2 2
+    2 2`)
+controller.moveSprite(cursor)
+scene.cameraFollowSprite(cursor)
+cursor.setFlag(SpriteFlag.Ghost, true)
+
 game.consoleOverlay.setVisible(true, 2)
 tiles.setTilemap(tiles.createTilemap(
     hex`0a0008000300000000000000030303030003000000000300030303030300000003000003030003030000030300000303030003000003000000030303030003030000030303030303030300030300000303030303`,
